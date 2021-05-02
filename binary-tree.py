@@ -37,6 +37,9 @@ class BinaryTree():
         if tree_type == "levelorder":
             print(tree_type)
             return self.levelorder(t.root)
+        if tree_type == "reverse_leverorder":
+            print(tree_type)
+            return self.reverse_leverorder(t.root)
 
     def preorder(self, start, visited):
         """ root -> left -> right """
@@ -78,6 +81,21 @@ class BinaryTree():
                 queue.enqueue(node.right)
         return visited
 
+    def reverse_leverorder(self, start):
+        if start is None:
+            return
+        stack = []
+        queue = Queue()
+        queue.enqueue(start)
+        while(len(queue.items) > 0):
+            node = queue.dequeue()
+            stack.append(node)
+            if node.right:
+                queue.enqueue(node.right)
+            if node.left:
+                queue.enqueue(node.left)
+        return "->".join([str(n.value) for n in stack[::-1]])
+
 
 #       100
 #     /    \
@@ -104,3 +122,4 @@ print(tree.print_tree(tree, 'preorder'))
 print(tree.print_tree(tree, 'inorder'))
 print(tree.print_tree(tree, 'postorder'))
 print(tree.print_tree(tree, "levelorder"))
+print(tree.print_tree(tree, "reverse_leverorder"))
